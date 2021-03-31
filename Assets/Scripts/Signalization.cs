@@ -14,9 +14,7 @@ public class Signalization : MonoBehaviour
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        Debug.Log(_audioSource.volume);
         _audioSource.volume = 0.1f;
-        Debug.Log(_audioSource.volume);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

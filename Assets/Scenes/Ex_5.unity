@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 762519441}
   - component: {fileID: 762519442}
   m_Layer: 0
-  m_Name: Wide_putin
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7420f30459622494fbefbfe75f42801c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2D: {fileID: 762519442}
   _speed: 2
 --- !u!50 &762519442
 Rigidbody2D:

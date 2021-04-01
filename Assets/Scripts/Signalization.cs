@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
 public class Signalization : MonoBehaviour
 {
     [SerializeField] private UnityEvent _entered;
     [SerializeField] private UnityEvent _exit;
+
     private AudioSource _audioSource;
-    private bool _isInHouse = false;
-    private bool _isDescending = false;
+    private float _maxVolume = 1;
+    private int _volumeChangeRate = 5;
 
     private void Start()
     {
@@ -20,32 +22,20 @@ public class Signalization : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
-        {
             _entered.Invoke();
-            _isInHouse = true;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
-        {
             _exit.Invoke();
-            _isInHouse = false;
-        }
     }
 
     private void Update()
     {
-        if (_isDescending == false && _isInHouse)
-        {
-            _audioSource.volume += Time.deltaTime / 5;
-            _isDescending = _audioSource.volume == 1;
-        }
-        else if (_isDescending && _isInHouse)
-        {
-            _audioSource.volume -= Time.deltaTime / 5;
-            _isDescending = _audioSource.volume > 0.1;
-        }
+        if (_audioSource.volume <= 0.1 || _audioSource.volume == 1)
+            _volumeChangeRate *= -1;
+
+        _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _maxVolume, Time.deltaTime / _volumeChangeRate);
     }
 }
